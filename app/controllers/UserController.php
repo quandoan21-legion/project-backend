@@ -2,7 +2,7 @@
 include_once "BuyerController.php";
 class UserController extends BaseController
 {
-    private $__username, $__password, $__instanceUser, $__instanceModel;
+    private $__instanceUser, $__instanceModel;
     public function __construct($conn)
     {
         $this->__instanceModel = $this->initModel('UserModel', $conn);
@@ -17,7 +17,7 @@ class UserController extends BaseController
             $this->view('register');
         } else {
             $this->__instanceUser->setUserName($_REQUEST["username"]);
-            if ($this->__instanceModel->checkUserExist(username: $this->__instanceUser->getUserName()) == 1) {
+            if ($this->__instanceModel->checkUserExist($this->__instanceUser) == 1) {
                 echo "User name already exist";
                 $this->view('register');
             } else {
@@ -43,10 +43,10 @@ class UserController extends BaseController
             $this->view("login");
         } else if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
-            $this->__username         = $_REQUEST["username"];
-            $this->__password         = $_REQUEST["password"];
-            if ($this->__instanceModel->checkUserExist($this->__username, $this->__password) != null) {
-                $_SESSION["username"] = $this->__username;
+            $this->__instanceUser->setUserName($_REQUEST["username"]);
+            $this->__instanceUser->setPassword($_REQUEST["password"]);
+            if ($this->__instanceModel->checkUserExist($this->__instanceUser)) {
+                $_SESSION["username"] = $this->__instanceUser->getUserName();
                 $this->view('login');
                 echo "exist";
             } else {
@@ -71,6 +71,7 @@ class UserController extends BaseController
     {
         if ($_SERVER["REQUEST_METHOD"] === "GET") {
             $data = str_replace("?", "", $data);
+            $data = array_filter(array_values(explode("&", $data)));
             $this->viewData($data);
         }
     }

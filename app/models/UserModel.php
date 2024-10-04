@@ -54,8 +54,9 @@ class UserModel extends BaseController
         }
     }
 
-    public function checkUserExist($username, $password = null)
+    public function checkUserExist($oUser)
     {
+        $username = $oUser->getUserName();
         try {
             $sql  = "SELECT password FROM Buyers WHERE userName = :username";
             $stmt = $this->__conn->prepare($sql);
@@ -64,6 +65,7 @@ class UserModel extends BaseController
             $data = $stmt->fetch(PDO::FETCH_ASSOC);
 
             if (!empty($data)) {
+                $password = $oUser->getPassword();
                 if ($password !== null) {
 
                     $receivedPassword = $data['password'];
@@ -77,4 +79,6 @@ class UserModel extends BaseController
             echo "Error checking user: " . $e->getMessage();
         }
     }
+
+    public function getUseData($oUser) {}
 }
