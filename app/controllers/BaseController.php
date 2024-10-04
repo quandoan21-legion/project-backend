@@ -39,4 +39,16 @@ class BaseController
         var_dump($data);
         echo "</pre>";
     }
+
+    public function FactoryMessage($type = "info", $message = "", $data = null)
+    {
+        $arr = [
+            "type" => $type,
+            "message" => $message
+        ];
+        if ($data != null) {
+            $arr["data"] = $data;
+        }
+        echo json_encode($arr);
+    }
 }

@@ -10,6 +10,7 @@ class CollectionsController extends BaseController
     public function all()
     {
         $products = $this->__instanceModel->getAllProducts();
-        $this->view("AllProduct", $products);
+        echo json_encode($products);
+        $this->view("AllProduct");
     }
 }

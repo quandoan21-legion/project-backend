@@ -13,7 +13,6 @@ class UserController extends BaseController
 
     public function register()
     {
-
         if ($_SERVER["REQUEST_METHOD"] === "GET") {
             $this->view('register');
         } else {
@@ -31,7 +30,6 @@ class UserController extends BaseController
                 $this->__instanceUser->setBuyerImage($_REQUEST['image']);
                 $this->__instanceModel->createNewUser($this->__instanceUser);
                 // $this->view('register');
-                echo "Created. Please login!";
                 $this->view('login');
             }
         }
@@ -47,10 +45,10 @@ class UserController extends BaseController
             $this->__instanceUser->setPassword($_REQUEST["password"]);
             if ($this->__instanceModel->checkUserExist($this->__instanceUser)) {
                 $_SESSION["username"] = $this->__instanceUser->getUserName();
-                $this->view('login');
+                // $this->view('login');
                 echo "exist";
             } else {
-                $this->view('login');
+                // $this->view('login');
                 echo "not exist";
             }
         }
@@ -89,6 +87,7 @@ class UserController extends BaseController
             } else {
                 echo "User data not exist";
             }
+        } else if ($_SERVER["REQUEST_METHOD"] === "PUT") {
         }
     }
 }
