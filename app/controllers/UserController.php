@@ -17,8 +17,10 @@ class UserController extends BaseController
             $this->view('register');
         } else {
             $this->__instanceUser->setUserName($_REQUEST["username"]);
-            if ($this->__instanceModel->checkUserExist($this->__instanceUser) == 1) {
-                echo "User name already exist";
+            // $this->viewData(!empty($this->__instanceModel->checkUserExist($this->__instanceUser)));
+            // die();
+            if (!empty($this->__instanceModel->checkUserExist($this->__instanceUser))) {
+                $this->FactoryMessage("error", "User name already exist");
                 $this->view('register');
             } else {
                 $this->__instanceUser->setPassword($_REQUEST["password"]);
@@ -30,6 +32,7 @@ class UserController extends BaseController
                 $this->__instanceUser->setBuyerImage($_REQUEST['image']);
                 $this->__instanceModel->createNewUser($this->__instanceUser);
                 // $this->view('register');
+                $this->FactoryMessage("success", "Account Created");
                 $this->view('login');
             }
         }
@@ -43,13 +46,16 @@ class UserController extends BaseController
 
             $this->__instanceUser->setUserName($_REQUEST["username"]);
             $this->__instanceUser->setPassword($_REQUEST["password"]);
-            if ($this->__instanceModel->checkUserExist($this->__instanceUser)) {
+            $data = $this->__instanceModel->checkUserExist($this->__instanceUser);
+
+            if ($data != null && $data["buyerId"] != null) {
                 $_SESSION["username"] = $this->__instanceUser->getUserName();
-                // $this->view('login');
+                $this->FactoryMessage("success", "Login successfully", $data);
+                $this->view('login');
                 echo "exist";
             } else {
-                // $this->view('login');
-                echo "not exist";
+                $this->FactoryMessage("Error", "Login Failed", $data);
+                $this->view("login");
             }
         }
     }

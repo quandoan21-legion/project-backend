@@ -69,14 +69,14 @@ class UserModel extends BaseController
                 if ($password !== null) {
 
                     $receivedPassword = $data['password'];
-                    $this->viewData($data);
+                    // $this->viewData($data);
                     $isVerified = password_verify($password, $receivedPassword);
                     if ($isVerified) {
-                        return $data['buyerId'];
+                        return $data;
                     };
                     return null;
                 }
-                return $data['buyerId'];
+                return $data;
             }
             return null;
         } catch (Exception $e) {

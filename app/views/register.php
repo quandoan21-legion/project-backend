@@ -29,6 +29,7 @@
     </form>
 
     <a href="logout">logout</a>
+    <a href="login">login</a>
 </body>
 
 </html>
