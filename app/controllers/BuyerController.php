@@ -2,11 +2,29 @@
 include_once("./app/controllers/ValidateController.php");
 class BuyerController extends ValidateController
 {
-    protected $__firstName, $__password, $__userName, $__lastName, $__dob, $__phone, $__address, $__buyerImage;
+    protected $__id, $__firstName, $__password, $__userName, $__lastName, $__dob, $__phone, $__address, $__buyerImage;
 
     public function __construct()
     {
         // echo "vao r nhe";
+    }
+
+    public function setID($id)
+    {
+        $validatedId = $this->validate('id', $id);
+        if ($validatedId != null) {
+            $this->__id = $id;
+            return $this->getID();
+        }
+        return null;
+    }
+
+    public function getID()
+    {
+        if (!empty($this->__id)) {
+            return $this->__id;
+        }
+        return null;
     }
 
     public function setUserName($name)
@@ -27,7 +45,7 @@ class BuyerController extends ValidateController
 
     public function setPassword($password)
     {
-        $this->__password = password_hash($password, PASSWORD_DEFAULT);
+        $this->__password = $password;
         return $this->getPassword();
     }
 

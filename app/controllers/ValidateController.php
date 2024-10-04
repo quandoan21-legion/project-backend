@@ -6,6 +6,9 @@ class ValidateController
     {
         $type = strtolower($type);
         switch ($type) {
+            case "id":
+                $regex =  '/^[0-9]{1,11}$/';
+                break;
             case "name":
                 $regex = "/^[A-Za-z]+(?: [A-Za-z]+)*$/";
                 break;

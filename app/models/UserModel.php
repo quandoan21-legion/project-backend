@@ -11,7 +11,7 @@ class UserModel extends BaseController
     {
         // $this->viewData($oUser);
         $username   = $oUser->getUsername();
-        $password   = $oUser->getPassword();
+        $password   = password_hash($oUser->getPassword(), PASSWORD_DEFAULT);
         $firstName  = $oUser->getFirstName();
         $lastName   = $oUser->getLastName();
         $dob        = $oUser->getDob();
@@ -58,7 +58,7 @@ class UserModel extends BaseController
     {
         $username = $oUser->getUserName();
         try {
-            $sql  = "SELECT password FROM Buyers WHERE userName = :username";
+            $sql  = "SELECT * FROM Buyers WHERE userName = :username";
             $stmt = $this->__conn->prepare($sql);
             $stmt->bindParam('username', $username, PDO::PARAM_STR);
             $stmt->execute();
@@ -70,9 +70,13 @@ class UserModel extends BaseController
 
                     $receivedPassword = $data['password'];
                     $this->viewData($data);
-                    return password_verify($password, $receivedPassword) ? 1 : null;
+                    $isVerified = password_verify($password, $receivedPassword);
+                    if ($isVerified) {
+                        return $data['buyerId'];
+                    };
+                    return null;
                 }
-                return 1;
+                return $data['buyerId'];
             }
             return null;
         } catch (Exception $e) {
@@ -80,5 +84,18 @@ class UserModel extends BaseController
         }
     }
 
-    public function getUseData($oUser) {}
+    public function getUserData($oUser)
+    {
+        try {
+            $id   = $oUser->getID();
+            $sql  = "SELECT * FROM Buyers WHERE buyerId = :id";
+            $stmt = $this->__conn->prepare($sql);
+            $stmt->bindParam('id', $id, PDO::PARAM_INT);
+            $stmt->execute();
+            $data = $stmt->fetch(PDO::FETCH_ASSOC);
+            return $data;
+        } catch (Exception $e) {
+            echo $e->getMessage();
+        }
+    }
 }

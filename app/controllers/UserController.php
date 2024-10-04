@@ -5,6 +5,7 @@ class UserController extends BaseController
     private $__instanceUser, $__instanceModel;
     public function __construct($conn)
     {
+        session_start();
         $this->__instanceModel = $this->initModel('UserModel', $conn);
         $this->__instanceUser = new BuyerController();
     }
@@ -21,7 +22,6 @@ class UserController extends BaseController
                 echo "User name already exist";
                 $this->view('register');
             } else {
-
                 $this->__instanceUser->setPassword($_REQUEST["password"]);
                 $this->__instanceUser->setFirstName($_REQUEST['firstname']);
                 $this->__instanceUser->setLastName($_REQUEST['lastname']);
@@ -59,6 +59,7 @@ class UserController extends BaseController
     {
         if (isset($_SESSION['username'])) {
             $_SESSION['username'] = null;
+            session_destroy();
             echo "logout success fully";
             $this->view('login');
         } else {
@@ -72,7 +73,22 @@ class UserController extends BaseController
         if ($_SERVER["REQUEST_METHOD"] === "GET") {
             $data = str_replace("?", "", $data);
             $data = array_filter(array_values(explode("&", $data)));
-            $this->viewData($data);
+            $result = [];
+            foreach ($data as $item) {
+                list($key, $value) = explode('=', $item, 2);
+                $key = trim($key);
+                $value = trim($value);
+                $result[$key] = $value;
+            }
+            $this->__instanceUser->setID($result['user_id']);
+            $aUserData = $this->__instanceModel->getUserData($this->__instanceUser);
+            if ($aUserData != false) {
+                $_SESSION["data"] = $aUserData;
+                $this->viewData($_SESSION);
+                echo "User data above";
+            } else {
+                echo "User data not exist";
+            }
         }
     }
 }
