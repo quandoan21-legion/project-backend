@@ -11,6 +11,5 @@ class CollectionsController extends BaseController
     {
         $products = $this->__instanceModel->getAllProducts();
         $this->FactoryMessage("info", "This is product obj", $products);
-        $this->view("AllProduct");
     }
 }

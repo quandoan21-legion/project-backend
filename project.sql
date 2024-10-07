@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Oct 04, 2024 at 09:52 AM
+-- Generation Time: Oct 07, 2024 at 04:48 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -31,13 +31,14 @@ CREATE TABLE `Buyers` (
   `buyerId` int(11) NOT NULL,
   `userName` varchar(30) NOT NULL,
   `password` char(255) NOT NULL,
+  `email` varchar(200) DEFAULT NULL,
   `isAdmin` tinyint(1) NOT NULL DEFAULT 0,
   `isActive` tinyint(4) DEFAULT 1,
-  `firstName` varchar(255) NOT NULL,
-  `lastName` varchar(255) NOT NULL,
+  `firstName` varchar(255) DEFAULT NULL,
+  `lastName` varchar(255) DEFAULT NULL,
   `dob` date DEFAULT NULL,
-  `phone` varchar(15) NOT NULL,
-  `address` varchar(255) NOT NULL,
+  `phone` varchar(15) DEFAULT NULL,
+  `address` varchar(255) DEFAULT NULL,
   `BuyerImage` longblob DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -45,10 +46,13 @@ CREATE TABLE `Buyers` (
 -- Dumping data for table `Buyers`
 --
 
-INSERT INTO `Buyers` (`buyerId`, `userName`, `password`, `isAdmin`, `isActive`, `firstName`, `lastName`, `dob`, `phone`, `address`, `BuyerImage`) VALUES
-(69, 'quandoan', '$2y$10$3PDeumB55s29BGqJ2HwVUOMNEsL.E78s1k53H1uKuzwBb51fy04pO', 0, 1, 'askjdhasklh', 'skdhjakjsd', '2000-10-07', '891723981', 'skjsahdkah', ''),
-(70, 'admin', '$2y$10$NQCMXTngvUglgcJagglE5eIfAz/zSgUHztyThsE.ZjNZNVVA/uBlu', 1, 1, 'admin', 'admin', '2000-10-07', '1928739182', 'shkaskjdas', 0x494d475f323435342e6a7067),
-(71, 'johndoe', '$2y$10$rvYw9NJHYeCe9Ql5g5.yw.SJxZYXhEH/LnyKOqnoGKHLuuvtfbkOK', 0, 1, 'john', 'doe', '2000-10-07', '189273918273', 'ksjhdkadhskjd', 0x494d475f323435342e6a7067);
+INSERT INTO `Buyers` (`buyerId`, `userName`, `password`, `email`, `isAdmin`, `isActive`, `firstName`, `lastName`, `dob`, `phone`, `address`, `BuyerImage`) VALUES
+(82, 'admin', '$2y$10$CCNwMMwgUQOHvsnkOMUBcetAPG0cVjzk9wDjhFG0SeuGVue3l.ilm', '', 0, 1, 'quandoan', 'quandoan', '2000-09-08', '1029381', 'askldjsla', ''),
+(83, 'admin', '$2y$10$XLjXHBztqnewhJ4HW67WhOAJJYIH93EkKqG1LULs1XzQQgRx8LUwa', '', 0, 1, 'quan', 'doan', '2000-10-08', '1230', 'lskjdalsjs', ''),
+(84, 'admin', '$2y$10$tQ2t.YNfbaeoOxLwiKqFK.7bzpeStH1v9kaYx5PLK7RMhlDjC6/ai', '', 0, 1, 'sdaksh', 'dkjsahkdsh', '2000-10-07', '1023091', 'sjhdkajskjda', ''),
+(85, 'john_doe', '$2y$10$hTSfm0kybxZ/P1NXZjVS3OHB5ikxNdQ5kfWtHW4p0wXyhxbTOr9B2', '', 0, 1, 'John', 'Doe', '1990-01-01', '+1234567890', '1234 Elm Street, Springfield, USA', NULL),
+(86, 'john123', '$2y$10$JYVSomn.3Jg9k/N5gDb7zuXww8EjfgmdkLmwrEzHC0p5O8B8C5khy', '', 0, 1, 'John', 'Doe', '1990-01-01', '+1234567890', '1234 Elm Street, Springfield, USA', 0x6956424f5277304b47676f414141414e5355684555674141414751414141426b434149414141442f6741494441414141356b6c45515652346e4f335151516b4149414441514c562f5a36336758694c634a526962653342727651373469566d425759465a2e2e2e),
+(87, 'johnsadlkjasld', '$2y$10$X1SuJhUtGGPp8CYnr3mcjegCmOCII4YupiWdTdj/8oqz5mk4LzTue', NULL, 0, 1, NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1611,7 +1615,7 @@ ALTER TABLE `ProductsCategories`
 -- AUTO_INCREMENT for table `Buyers`
 --
 ALTER TABLE `Buyers`
-  MODIFY `buyerId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=72;
+  MODIFY `buyerId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=90;
 
 --
 -- AUTO_INCREMENT for table `Coupons`
