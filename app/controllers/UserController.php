@@ -94,7 +94,10 @@ class UserController extends BaseController
         $this->__instanceUser->set_old_password($old_password);
         $this->__instanceUser->set_new_password($new_password);
         $this->__instanceUser->set_user_id($inputs["user_id"]);
-        if ($this->__instanceModel->checkPasswordCorrect($this->__instanceUser)) {
+
+        if ($old_password == $new_password) {
+            $this->FactoryMessage("error", "Your new password can't be the same with your old Password");
+        } else if ($this->__instanceModel->checkPasswordCorrect($this->__instanceUser)) {
             $user_id = $inputs["user_id"];
             $this->__instanceUser->reset_properties();
             $this->__instanceUser->set_password($new_password);
