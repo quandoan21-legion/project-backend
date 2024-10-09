@@ -110,16 +110,6 @@
         }
         ```
 
-- [ ]  [GET] /user/profile/
-    - [GET] /user/profile/
-        
-        **Description**: get user account info
-        
-        ```json
-        {
-            "user_id": 123
-        }
-        ```
 
 - [ ]  [POST] /user/change_password/
     - [POST] /user/change_password/
@@ -156,7 +146,7 @@
 
 ## Products
 
-- [ ]  [PUT] /collections/all
+- [ ]  [GET] /collections/all
 
 ## Orders
 
