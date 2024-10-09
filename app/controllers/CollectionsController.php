@@ -13,7 +13,7 @@ class CollectionsController extends BaseController
         $this->FactoryMessage("info", "This is products obj", $products);
     }
 
-    public function skincare()
+    public function skincare($params = [])
     {
         $inputs = json_decode(file_get_contents('php://input'), true);
         $allowed_keys = ['max_price', 'min_price', 'order_by', 'offset'];
@@ -22,7 +22,13 @@ class CollectionsController extends BaseController
                 ${$key} = $inputs[$key];
             }
         }
-        $data = $this->__instanceModel->getCollectionProducts("Skincare", order_by: "price");
-        $this->viewData($data);
+        $data = $this->__instanceModel->getCollectionProducts(
+            "Skincare",
+            order_by: $params["order_by"] ?? null,
+            min_price: $params["min_price"] ?? null,
+            max_price: $params["max_price"] ?? null,
+            desc: $params["desc"] ?? true
+        );
+        $this->FactoryMessage("success", "This is products array", $data);
     }
 }
