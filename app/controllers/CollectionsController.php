@@ -29,6 +29,32 @@ class CollectionsController extends BaseController
             max_price: $params["max_price"] ?? null,
             desc: $params["desc"] ?? true
         );
-        $this->FactoryMessage("success", "This is products array", $data);
+        if (!empty($data)) {
+            $this->FactoryMessage("success", "This is products array", $data);
+        } else {
+            $this->FactoryMessage("error", "There are no products that match your requirement");
+        }
+    }
+    public function makeup($params = [])
+    {
+        $inputs = json_decode(file_get_contents('php://input'), true);
+        $allowed_keys = ['max_price', 'min_price', 'order_by', 'offset'];
+        foreach ($allowed_keys as $key) {
+            if (!empty($inputs[$key])) {
+                ${$key} = $inputs[$key];
+            }
+        }
+        $data = $this->__instanceModel->getCollectionProducts(
+            "Makeup",
+            order_by: $params["order_by"] ?? null,
+            min_price: $params["min_price"] ?? null,
+            max_price: $params["max_price"] ?? null,
+            desc: $params["desc"] ?? true
+        );
+        if (!empty($data)) {
+            $this->FactoryMessage("success", "This is products array", $data);
+        } else {
+            $this->FactoryMessage("error", "There are no products that match your requirement");
+        }
     }
 }
