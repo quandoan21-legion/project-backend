@@ -30,18 +30,46 @@
 
 ## Quản lý Product
 
-- [ ] **[GET] /admin/products/**
+- [ ] **[GET] /admin/products/?product_id=123**
+    - **Description**: get all product in admin
+    - **Payload Example**:
+    ```json
+    {
+      [
+        "product_id": 1,
+        "product_name": "abc",
+        "description": "asdasdas",
+        "product_price": 99.99,
+        "stock_qty": 1,
+        "main_category": "skincare",
+        "sub_category": "abc"
+        "product_images" : [
+            "link1",
+            "link2",
+            "link3",
+            "link4"
+        ]
+      ]
+    }
+    
+    ```
 - [ ] **[POST] /admin/products/**
   - **Description**: Add new product
   - **Request Example**:
     ```json
     {
-      "product_id": 123,
       "product_name": "Sample Product",
       "price": 99.999999999,
-      "quantity_in_stock": 50,
-      "category": 1,
-      "date_listed": "2024-10-05"
+      "stock_qty": 50,
+      "main_category": "Makeup" || "Skincare",
+      "sub_category": "Makeup" || "Skincare",
+      "date_listed": "2024-10-05",
+      "product_images" :[
+            "link1",
+            "link2",
+            "link3",
+            "link4"
+        ]
     }
     ```
 
@@ -53,9 +81,16 @@
       "product_id": 123,
       "product_name": "Sample Product",
       "price": 99.999999999,
-      "quantity_in_stock": 50,
-      "category": 1,
-      "date_listed": "2024-10-05"
+      "stock_qty": 50,
+      "main_category": "Makeup" || "Skincare",
+      "sub_category": "Makeup" || "Skincare",
+      "date_listed": "2024-10-05",
+      "product_images" : [
+            "link1",
+            "link2",
+            "link3",
+            "link4"
+        ]
     }
     ```
 
@@ -200,8 +235,8 @@
 
 ## Orders
 
-- [ ] **[GET] /user/orders/?user_id=123**
-  - **Request Example**:
+- [x] **[GET] /user/orders/?user_id=123**
+  - **Return Payload Example**:
     ```json
     {
       "orders": [
@@ -250,14 +285,6 @@
     }
     ```
 
-- [ ] **[PUT] /user**
-  - **Request Example**:
-    ```json
-    {
-      "order_id": 123,
-      "status": 1 | 2 | 3
-    }
-    ```
 
 ## Order Item
 
@@ -279,13 +306,3 @@
       ]
     }
     ```
-
-## Coupons
-
-## Order Status
-
-## Product Image
-
-## Product Rating
-
-## Product Category

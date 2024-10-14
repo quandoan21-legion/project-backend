@@ -10,7 +10,7 @@ class CollectionsController extends BaseController
     public function all()
     {
         $products = $this->__instanceModel->getAllProducts();
-        $this->FactoryMessage("info", "This is products obj", $products);
+        $this->FactoryMessage("success", "This is products obj", $products);
     }
 
     public function skincare($params = [])
@@ -29,7 +29,7 @@ class CollectionsController extends BaseController
             max_price: $params["max_price"] ?? null,
             desc: $params["desc"] ?? true
         );
-            $this->FactoryMessage("success", "This is products array", $data);
+        $this->FactoryMessage("success", "This is products array", $data);
     }
 
 
@@ -51,6 +51,7 @@ class CollectionsController extends BaseController
         );
         if (!empty($data)) {
             $this->FactoryMessage("success", "This is products array", $data);
+        }
     }
 
     public function product($params = [])
@@ -66,6 +67,8 @@ class CollectionsController extends BaseController
 
         // If the product exists, return it; otherwise, return an error message
         if ($product) {
+            $product_ratings = $this->__instanceModel->getProductRatingsById($productId);
+            $product['product_ratings'] = $product_ratings; // Corrected syntax here
             $this->FactoryMessage("success", "Product found", $product);
         } else {
             $this->FactoryMessage("error", "Product not found");
