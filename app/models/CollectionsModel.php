@@ -41,7 +41,6 @@ class CollectionsModel extends BaseController
 
     public function getProductById($product_id)
     {
-
         $sql  = "SELECT p.*, GROUP_CONCAT(pi.image_url) as product_images FROM Products AS p 
                 LEFT JOIN ProductImages AS pi ON p.product_id = pi.product_id
                 WHERE p.product_id = :product_id";
