@@ -18,4 +18,18 @@ class RatingModel extends BaseController
         $this->bind_instance_value($o_rating, $stmt);
         $stmt->execute();
     }
+
+    public function checkUserHaveBoughtProduct($product_id, $user_id)
+    {
+        $sql = "SELECT * FROM Orders o
+        JOIN OrderItems oi
+        ON o.order_id = oi.order_id
+        WHERE o.user_id = :user_id
+        AND oi.product_id = :product_id";
+        $stmt = $this->__conn->prepare($sql);
+        $stmt->bindValue(":user_id", $user_id, PDO::PARAM_INT);
+        $stmt->bindValue(":product_id", $product_id, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }

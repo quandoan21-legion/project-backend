@@ -30,7 +30,7 @@
 
 ## Quản lý Product
 
-- [ ] **[GET] /admin/products/?product_id=123**
+- [x] **[GET] /admin/products/?product_id=123**
     - **Description**: get all product in admin
     - **Payload Example**:
     ```json
@@ -43,17 +43,12 @@
         "stock_qty": 1,
         "main_category": "skincare",
         "sub_category": "abc"
-        "product_images" : [
-            "link1",
-            "link2",
-            "link3",
-            "link4"
-        ]
+        "product_images" : "link1,link2,link3,link4"
       ]
     }
     
     ```
-- [ ] **[POST] /admin/products/**
+- [x] **[POST] /admin/products/**
   - **Description**: Add new product
   - **Request Example**:
     ```json
@@ -64,16 +59,11 @@
       "main_category": "Makeup" || "Skincare",
       "sub_category": "Makeup" || "Skincare",
       "date_listed": "2024-10-05",
-      "product_images" :[
-            "link1",
-            "link2",
-            "link3",
-            "link4"
-        ]
+      "product_images" : "link1,link2,link3,link4"
     }
     ```
 
-- [ ] **[PUT] /admin/products/**
+- [x] **[PUT] /admin/products/**
   - **Description**: Update existing product
   - **Request Example**:
     ```json
@@ -85,12 +75,7 @@
       "main_category": "Makeup" || "Skincare",
       "sub_category": "Makeup" || "Skincare",
       "date_listed": "2024-10-05",
-      "product_images" : [
-            "link1",
-            "link2",
-            "link3",
-            "link4"
-        ]
+      "product_images" : "link1,link2,link3,link4"
     }
     ```
 
@@ -304,5 +289,54 @@
           "quantity": 90
         }
       ]
+    }
+    ```
+
+## Product rating
+
+- [ ] **[GET] product/rating/?product_id=123**
+  - **Respond Example**:
+    ```json
+    {
+      "ratings": [
+        {
+          "product_id": 123,
+          "rating": 5,
+          "rating_comment": "This is product rating comment",
+          "user_id" : 123
+        },
+        {
+          "product_id": 123,
+          "rating": 1,
+          "rating_comment": "This is product rating comment",
+          "user_id" : 234
+        }, {
+          "product_id": 123,
+          "rating": 3,
+          "rating_comment": "This is product rating comment",
+          "user_id" : 345
+        }
+      ]
+    }
+    ```
+
+- [ ] **[POST] product/rating/**
+  - **Respond Example**:
+    ```json
+    {
+      "product_id": 123,
+      "rating": 5,
+      "rating_comment": "This is product rating comment",
+      "user_id" : 123
+    }
+    ```
+- [ ] **[PUT] product/rating/**
+  - **Respond Example**:
+    ```json
+    {
+      "product_id": 123,
+      "rating": 5,
+      "rating_comment": "This is product rating comment",
+      "user_id" : 123
     }
     ```
