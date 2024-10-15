@@ -39,10 +39,12 @@ class ProductsController extends BaseController
             $arr                       = $this->create_sql_param_for_sql($instance_rating, "POST");
             $instanceRatingModel       = $this->initModel("RatingModel", $this->__conn);
             $data = $instanceRatingModel->checkUserHaveBoughtProduct($input["product_id"], $input["user_id"]);
-
-            if (!empty($data)) {
+            $rated = $instanceRatingModel->checkUserHaveLeaveAReviewOrNot($input["product_id"], $input["user_id"]);
+            if (!empty($data) && empty($rated)) {
                 $instanceRatingModel->addNewRating($arr["col"], $arr["value"], $instance_rating);
                 $this->FactoryMessage("success", "Your rating has been posted successfully");
+            } else if (!empty($rated)) {
+                $this->FactoryMessage("error", "You have already leave a rating for this product");
             } else {
                 $this->FactoryMessage("error", "You need to buy this product before leave a rating for this product");
             }

@@ -32,4 +32,14 @@ class RatingModel extends BaseController
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+    public function checkUserHaveLeaveAReviewOrNot($product_id, $user_id)
+    {
+        $sql = "SELECT * FROM ProductRating
+            WHERE product_id = :product_id AND user_id = :user_id";
+        $stmt = $this->__conn->prepare($sql);
+        $stmt->bindValue(":product_id", $product_id, PDO::PARAM_INT);
+        $stmt->bindValue(":user_id", $user_id, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }
